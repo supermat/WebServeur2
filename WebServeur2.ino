@@ -34,6 +34,12 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <SD.h>
+//#include "Dht11.h"
+//#include <DHT/DHT.h>
+
+//#define DHTPIN 2     // what pin we're connected to
+//#define DHTTYPE DHT11   // DHT 11
+//DHT dht(DHTPIN, DHTTYPE);x
 
 // size of buffer used to capture HTTP requests
 #define REQ_BUF_SZ   20
@@ -135,6 +141,53 @@ void ShowWebPageInSD(EthernetClient client,char *p_Filename)
     }
 
 }
+int getHumidity() {
+        /*Dht11 sensor(DHTPIN);
+        if(sensor.read() == Dht11::OK)
+   {
+    return sensor.getHumidity();
+   }*/
+   return 0;
+    }
+    int getTemp() {
+       /* Dht11 sensor(DHTPIN);
+        if(sensor.read() == Dht11::OK)
+   {
+    return sensor.getTemperature();
+   }*/
+   return 0;
+    }
+// send the state of the switch to the web browser
+void WS(EthernetClient cl, char* p_req)
+{
+  Serial.println("Web Services");
+
+      if (StrContains(p_req, "temp")){
+
+         float t = getTemp();
+         if (isnan(t))
+         {
+           cl.println("Failed to read temp from DHT");
+         }else{
+            cl.print("Température (°C): ");
+            cl.println(t);
+         }
+      }
+     else if (StrContains(p_req, "humidite")){
+         float h = getHumidity();
+         if (isnan(h))
+         {
+           cl.println("Failed to read humidity from DHT");
+         }else{
+            cl.print("Humidité (%): ");
+            cl.println(h);
+         }
+     }
+     else{
+        cl.println("inconnu");
+     }
+}
+
 void setup()
 {
     // disable Ethernet chip
@@ -159,6 +212,8 @@ void setup()
 
     Ethernet.begin(mac, ip);  // initialize Ethernet device
     server.begin();           // start to listen for clients
+
+     //dht.begin();
 }
 
 void loop()
@@ -183,7 +238,14 @@ void loop()
                 if (c == '\n' && currentLineIsBlank) {
                     // open requested web page file
                     char* v_Filename = ExtractFileName(HTTP_req);
+                    if(StrContains(v_Filename,"ws/"))
+                    {
+                        WS(client,v_Filename);
+                    }
+                    else
+                    {
                       ShowWebPageInSD(client,v_Filename);
+                    }
                       free (v_Filename); //On lib¨¨re la m¨¦moire allou¨¦e
                     // reset buffer index and all buffer elements to 0
                     req_index = 0;

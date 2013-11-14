@@ -1,6 +1,71 @@
 # depslib dependency file v1.0
-1384463806 source:e:\_data\arduino\github\webserveur2\webserveur2.ino
+1384467363 source:e:\_data\arduino\github\webserveur2\webserveur2.ino
 	<SPI.h>
 	<Ethernet.h>
 	<SD.h>
+	"Dht11.h"
+
+1384292935 e:\_data\arduino\github\webserveur2\dht\dht.h
+	"Arduino.h"
+	"WProgram.h"
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\arduino.h
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<avr/pgmspace.h>
+	<avr/io.h>
+	<avr/interrupt.h>
+	"binary.h"
+	"WCharacter.h"
+	"WString.h"
+	"HardwareSerial.h"
+	"pins_arduino.h"
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\binary.h
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\wcharacter.h
+	<ctype.h>
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\wstring.h
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<avr/pgmspace.h>
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\hardwareserial.h
+	<inttypes.h>
+	"Stream.h"
+	"USBAPI.h"
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\stream.h
+	<inttypes.h>
+	"Print.h"
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\print.h
+	<inttypes.h>
+	<stdio.h>
+	"WString.h"
+	"Printable.h"
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\printable.h
+	<new.h>
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\new.h
+	<stdlib.h>
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\cores\arduino\usbapi.h
+
+1362986950 e:\_data\arduino\codeblocksarduino\codeblocks\arduino\hardware\arduino\variants\standard\pins_arduino.h
+	<avr/pgmspace.h>
+
+1384292935 source:e:\_data\arduino\github\webserveur2\dht\dht.cpp
+	"DHT.h"
+
+1384466867 source:e:\_data\arduino\github\webserveur2\dht11.cpp
+	"Dht11.h"
+
+1384466830 e:\_data\arduino\github\webserveur2\dht11.h
+	<Arduino.h>
+	<WProgram.h>
 
