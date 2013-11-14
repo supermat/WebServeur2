@@ -66,26 +66,28 @@ char StrContains(char *str, char *sfind)
 char* ExtractFileName(char* header)
 {
 
-  //char header[64];
-char filename[64];
+  char * filename = (char *) malloc (64);
+//char filename[64];
   int i, j;
 
   i=0;
   while (header[i++] != ' ') {
     ;
   }
+  i++;
   j=0;
   while (header[i] != ' ') {
     filename[j++] = header[i++];
   }
   filename[j] = 0;
-  if (filename[0] == '/' && filename[1] == 0) {
+  if (filename[0] == 0) {
     strcpy(filename, "index.htm");
   }
-  char v_retour[j];
-  sprintf (filename, "%s", filename);
+  //char v_retour[j];
+  //sprintf (v_retour, "%s", filename);
   //String(filename).toCharArray(v_retour, j);
-  return &v_retour[0];
+  //return &v_retour[0];
+  return filename;
 }
 
 void ShowWebPageInSD(EthernetClient client,char *p_Filename)
@@ -180,85 +182,9 @@ void loop()
                 // respond to client only after last line received
                 if (c == '\n' && currentLineIsBlank) {
                     // open requested web page file
-                    //char* v_Filename = ExtractFileName(HTTP_req);
-                    char *v_Filename;
-                    v_Filename = HTTP_req + 5; // look after the "GET /" (5 chars)
-                    // a little trick, look for the " HTTP/1.1" string and
-                    // turn the first character of the substring into a 0 to clear it out.
-                    (strstr(HTTP_req, " HTTP"))[0] = 0;
-
-                      // print the file we want
-                      Serial.println(v_Filename);
+                    char* v_Filename = ExtractFileName(HTTP_req);
                       ShowWebPageInSD(client,v_Filename);
-                    /*if (StrContains(HTTP_req, "GET / ")
-                                 || StrContains(HTTP_req, "GET /index.htm")) {
-                        client.println("HTTP/1.1 200 OK");
-                        client.println("Content-Type: text/html");
-                        client.println("Connnection: close");
-                        client.println();
-                        webFile = SD.open(v_Filename);        // open web page file
-                    }
-                    else if (StrContains(HTTP_req, "GET /page2.htm")) {
-                        client.println("HTTP/1.1 200 OK");
-                        client.println("Content-Type: text/html");
-                        client.println("Connnection: close");
-                        client.println();
-                        webFile = SD.open(v_Filename);        // open web page file
-                    }
-                    else if (StrContains(HTTP_req, "GET /pic.jpg")) {
-                        webFile = SD.open(v_Filename);
-                        if (webFile) {
-                            client.println("HTTP/1.1 200 OK");
-                            client.println();
-                        }
-                    }*/
-                    /*else if (strstr(clientline, "GET /") != 0) {
-          // this time no space after the /, so a sub-file!
-          char *filename;
-
-          filename = clientline + 5; // look after the "GET /" (5 chars)
-          // a little trick, look for the " HTTP/1.1" string and
-          // turn the first character of the substring into a 0 to clear it out.
-          (strstr(clientline, " HTTP"))[0] = 0;
-
-          // print the file we want
-          Serial.println(filename);
-
-          if (! file.open(&root, filename, O_READ)) {
-            client.println("HTTP/1.1 404 Not Found");
-            client.println("Content-Type: text/html");
-            client.println();
-            client.println("<h2>File Not Found!</h2>");
-            break;
-          }
-
-          Serial.println("Opened!");
-
-          client.println("HTTP/1.1 200 OK");
-          client.println("Content-Type: text/plain");
-          client.println();
-
-          int16_t c;
-          while ((c = file.read()) > 0) {
-              // uncomment the serial to debug (slow!)
-              //Serial.print((char)c);
-              client.print((char)c);
-          }
-          file.close();
-        } else {
-          // everything else is a 404
-          client.println("HTTP/1.1 404 Not Found");
-          client.println("Content-Type: text/html");
-          client.println();
-          client.println("<h2>File Not Found!</h2>");
-        }*/
-
-                    /*if (webFile) {
-                        while(webFile.available()) {
-                            client.write(webFile.read()); // send web page to client
-                        }
-                        webFile.close();
-                    }*/
+                      free (v_Filename); //On lib¨¨re la m¨¦moire allou¨¦e
                     // reset buffer index and all buffer elements to 0
                     req_index = 0;
                     StrClear(HTTP_req, REQ_BUF_SZ);
